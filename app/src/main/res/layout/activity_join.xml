@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".JoinActivity">
+
+    <!--logo-->
+    <ImageView
+        android:layout_width="196dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="111dp"
+        android:layout_marginBottom="144dp"
+        android:src="@drawable/logo_outstagram"/>
+
+    <!--input_id&pw-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/id_input"
+            android:layout_width="356dp"
+            android:layout_height="62dp"
+            android:hint="@string/id"
+            android:textColorHint="@color/instagram_gray"
+            android:textSize="18dp"
+            android:paddingLeft="27dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/input_background"/>
+
+        <EditText
+            android:id="@+id/pw_input"
+            android:layout_width="356dp"
+            android:layout_height="62dp"
+            android:hint="@string/pw"
+            android:textColorHint="@color/instagram_gray"
+            android:textSize="18dp"
+            android:paddingLeft="27dp"
+            android:background="@drawable/input_background"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--sign-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="90dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:text="@string/sign_text"
+            android:layout_marginRight="10dp"
+            android:textSize="18dp"
+            android:textColor="@color/instagram_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="43dp"
+            android:text="@string/sign"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/instagram_blue"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--login-->
+    <TextView
+        android:id="@+id/login_btn"
+        android:layout_width="162dp"
+        android:layout_height="58dp"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:background="@drawable/login_background"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
