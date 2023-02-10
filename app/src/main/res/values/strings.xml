@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Instagram</string>
+    <string name="id">아이디</string>
+    <string name="pw">비밀번호</string>
+    <string name="sign_text">계정이 없으신가요?</string>
+    <string name="sign">가입하기</string>
+    <string name="login">로그인</string>
+</resources>
