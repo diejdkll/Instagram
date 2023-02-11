@@ -1,6 +1,8 @@
 package com.example.instagram
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -53,7 +55,12 @@ class LoginActivity : AppCompatActivity() {
                     if(response.isSuccessful){
                         Toast.makeText(this@LoginActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
 
-                        val token: UserToken = response.body()!!
+                        val userToken: UserToken = response.body()!!
+                        val sharedPreferences =
+                            getSharedPreferences("user_info", Context.MODE_PRIVATE)
+                        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                        editor.putString("token", userToken.token)
+                        editor.commit()
                     }
                     else{
                         Toast.makeText(this@LoginActivity, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()

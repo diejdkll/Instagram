@@ -1,6 +1,8 @@
 package com.example.instagram
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -57,12 +59,20 @@ class JoinActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
                     if(response.isSuccessful){
                         Toast.makeText(this@JoinActivity, "가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+
                         val userToken: UserToken = response.body()!!
+                        val sharedPreferences =
+                            getSharedPreferences("user_info", Context.MODE_PRIVATE)
+                        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                        editor.putString("token", userToken.token)
+                        editor.commit()
+                    }
+                    else{
+                        Toast.makeText(this@JoinActivity, "가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<UserToken>, t: Throwable) {
-                    Toast.makeText(this@JoinActivity, "가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
             })
         }
