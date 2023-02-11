@@ -1,12 +1,11 @@
 package com.example.instagram
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import com.example.instagram.databinding.ActivityJoinBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,13 +14,32 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class JoinActivity : AppCompatActivity() {
 
+    lateinit var binding: ActivityJoinBinding
+
     var username: String = ""
     var password: String = ""
-
-    @SuppressLint("MissingInflatedId")
+    var passwordCheck: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding = ActivityJoinBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_join)
+        setContentView(binding.root)
+
+        binding.login.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.idInput.doAfterTextChanged {
+            username = it.toString()
+        }
+
+        binding.pwInput.doAfterTextChanged {
+            password = it.toString()
+        }
+
+        binding.pwReInput.doAfterTextChanged {
+            passwordCheck = it.toString()
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://mellowcode.org/")
@@ -30,30 +48,21 @@ class JoinActivity : AppCompatActivity() {
 
         val retrofitService = retrofit.create(RetrofitService::class.java)
 
-        findViewById<EditText>(R.id.id_input).doAfterTextChanged {
-            username = it.toString()
-        }
-
-        findViewById<EditText>(R.id.pw_input).doAfterTextChanged {
-            password = it.toString()
-        }
-
-        findViewById<TextView>(R.id.login_btn).setOnClickListener {
+        binding.joinBtn.setOnClickListener {
             val user = HashMap<String, Any>()
             user.put("username", username)
-            user.put("password", password)
-            retrofitService.instaLogin(user).enqueue(object : Callback<Token>{
-                override fun onResponse(call: Call<Token>, response: Response<Token>) {
+            user.put("password1", password)
+            user.put("password2", passwordCheck)
+            retrofitService.instaJoin(user).enqueue(object : Callback<UserToken>{
+                override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
                     if(response.isSuccessful){
-                        val token: Token = response.body()!!
-                    }
-                    else{
-                        Toast.makeText(this@JoinActivity, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@JoinActivity, "가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                        val userToken: UserToken = response.body()!!
                     }
                 }
 
-                override fun onFailure(call: Call<Token>, t: Throwable) {
-
+                override fun onFailure(call: Call<UserToken>, t: Throwable) {
+                    Toast.makeText(this@JoinActivity, "가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
             })
         }
