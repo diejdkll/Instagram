@@ -50,24 +50,26 @@ class LoginActivity : AppCompatActivity() {
             val user = HashMap<String, Any>()
             user.put("username", username)
             user.put("password", password)
-            retrofitService.instaLogin(user).enqueue(object : Callback<UserToken>{
-                override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
-                    if(response.isSuccessful){
-                        Toast.makeText(this@LoginActivity, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-
-                        val userToken: UserToken = response.body()!!
+            retrofitService.instaLogin(user).enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        val user: User = response.body()!!
                         val sharedPreferences =
                             getSharedPreferences("user_info", Context.MODE_PRIVATE)
                         val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                        editor.putString("token", userToken.token)
+                        editor.putString("token", user.token)
+                        editor.putString("user_id", user.id.toString())
                         editor.commit()
-                    }
-                    else{
-                        Toast.makeText(this@LoginActivity, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+
+                        val intent = Intent(this@LoginActivity, InstaMainActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this@LoginActivity, "로그인에 실패했습니다.", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
 
-                override fun onFailure(call: Call<UserToken>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
 
                 }
             })

@@ -13,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("user_info", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token", "empty")
 
-        when(token){
+        when (token) {
             "empty" -> {
                 // 로그인이 되어있지 않은 경우
                 val intent = Intent(this, LoginActivity::class.java)
@@ -21,6 +21,8 @@ class SplashActivity : AppCompatActivity() {
             }
             else -> {
                 // 로그인이 되어있는 경우
+                val intent = Intent(this, InstaMainActivity::class.java)
+                startActivity(intent)
             }
         }
 

@@ -55,24 +55,25 @@ class JoinActivity : AppCompatActivity() {
             user.put("username", username)
             user.put("password1", password)
             user.put("password2", passwordCheck)
-            retrofitService.instaJoin(user).enqueue(object : Callback<UserToken>{
-                override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
-                    if(response.isSuccessful){
-                        Toast.makeText(this@JoinActivity, "가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
-
-                        val userToken: UserToken = response.body()!!
+            retrofitService.instaJoin(user).enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        val user: User = response.body()!!
                         val sharedPreferences =
                             getSharedPreferences("user_info", Context.MODE_PRIVATE)
                         val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                        editor.putString("token", userToken.token)
+                        editor.putString("token", user.token)
+                        editor.putString("user_id", user.id.toString())
                         editor.commit()
-                    }
-                    else{
+
+                        val intent = Intent(this@JoinActivity, InstaMainActivity::class.java)
+                        startActivity(intent)
+                    } else {
                         Toast.makeText(this@JoinActivity, "가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<UserToken>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
                 }
             })
         }

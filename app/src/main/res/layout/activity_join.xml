@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".LoginActivity">
 
     <!--logo-->
@@ -14,7 +14,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="111dp"
         android:layout_marginBottom="104dp"
-        android:src="@drawable/logo_outstagram"/>
+        android:src="@drawable/logo_outstagram" />
 
     <!--input_id&pw-->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -27,35 +27,35 @@
             android:id="@+id/id_input"
             android:layout_width="356dp"
             android:layout_height="62dp"
-            android:hint="@string/id"
-            android:textColorHint="@color/instagram_gray"
-            android:textSize="18dp"
-            android:paddingLeft="27dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/input_background"/>
+            android:background="@drawable/input_background"
+            android:hint="@string/id"
+            android:paddingLeft="27dp"
+            android:textColorHint="@color/instagram_gray"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/pw_input"
             android:layout_width="356dp"
             android:layout_height="62dp"
-            android:hint="@string/pw"
             android:layout_marginBottom="10dp"
-            android:textColorHint="@color/instagram_gray"
+            android:background="@drawable/input_background"
+            android:hint="@string/pw"
             android:inputType="textPassword"
-            android:textSize="18dp"
             android:paddingLeft="27dp"
-            android:background="@drawable/input_background"/>
+            android:textColorHint="@color/instagram_gray"
+            android:textSize="18dp" />
 
         <EditText
             android:id="@+id/pw_re_input"
             android:layout_width="356dp"
             android:layout_height="62dp"
+            android:background="@drawable/input_background"
             android:hint="@string/pw_re"
-            android:textColorHint="@color/instagram_gray"
             android:inputType="textPassword"
-            android:textSize="18dp"
             android:paddingLeft="27dp"
-            android:background="@drawable/input_background"/>
+            android:textColorHint="@color/instagram_gray"
+            android:textSize="18dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -63,17 +63,17 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="60dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="43dp"
-            android:text="@string/login_text"
             android:layout_marginRight="10dp"
-            android:textSize="18dp"
-            android:textColor="@color/instagram_black"/>
+            android:text="@string/login_text"
+            android:textColor="@color/instagram_black"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/login"
@@ -81,9 +81,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="43dp"
             android:text="@string/login"
+            android:textColor="@color/instagram_blue"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/instagram_blue"/>
+            android:textStyle="bold" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -92,10 +92,10 @@
         android:id="@+id/join_btn"
         android:layout_width="162dp"
         android:layout_height="58dp"
+        android:background="@drawable/login_background"
+        android:gravity="center"
         android:text="@string/sign"
         android:textColor="@color/white"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:background="@drawable/login_background"/>
+        android:textSize="20dp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
