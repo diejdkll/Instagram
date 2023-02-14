@@ -5,18 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".InstaMainActivity">
 
+    <!--logo-->
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:src="@drawable/logo_outstagram"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
+
+    <!--pager-->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/main_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-    
+
+    <!--tab-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_tab"
         android:layout_width="match_parent"
         android:layout_height="68dp"
+        app:tabIndicatorHeight="0dp"
         android:background="@color/white" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

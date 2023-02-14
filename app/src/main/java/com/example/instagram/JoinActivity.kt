@@ -66,7 +66,7 @@ class JoinActivity : AppCompatActivity() {
                         editor.putString("user_id", user.id.toString())
                         editor.commit()
 
-                        val intent = Intent(this@JoinActivity, InstaMainActivity::class.java)
+                        val intent = Intent(this@JoinActivity, LoginActivity::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this@JoinActivity, "가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
