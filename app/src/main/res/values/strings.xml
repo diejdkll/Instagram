@@ -7,4 +7,6 @@
     <string name="login_text">계정이 있으신가요?</string>
     <string name="sign">가입하기</string>
     <string name="login">로그인</string>
+    <string name="post_text">문구 입력</string>
+    <string name="post">게시</string>
 </resources>
