@@ -1,7 +1,13 @@
 package com.example.instagram
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -17,11 +23,33 @@ class InstaMainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityInstaMainBinding
 
+    // 추가할 권한들, Manifest에도 추가 필요
+    private val permissionList = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE)
+
+    // 권한 요청
+    private val requestMultiplePermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+        results.forEach {
+            if(!it.value) {
+                Toast.makeText(applicationContext, "${it.key} 권한 허용 필요", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+        main()
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityInstaMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        requestMultiplePermission.launch(permissionList)
+    }
+
+    fun main() {
         val tabs = binding.mainTab
         tabs.addTab(tabs.newTab().setIcon(R.drawable.btn_outsta_home))
         tabs.addTab(tabs.newTab().setIcon(R.drawable.btn_outsta_post))
@@ -55,7 +83,6 @@ class InstaMainActivity : AppCompatActivity() {
                 }
             }
         }.attach()
-
     }
 }
 
