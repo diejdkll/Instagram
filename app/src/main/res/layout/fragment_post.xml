@@ -8,6 +8,7 @@
     <!--selected_image-->
     <ImageView
         android:id="@+id/selected_img"
+        android:src="@drawable/btn_outsta_my"
         android:layout_width="match_parent"
         android:layout_height="344dp"
         android:layout_marginLeft="23dp"

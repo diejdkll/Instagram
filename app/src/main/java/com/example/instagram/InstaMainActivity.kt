@@ -27,19 +27,21 @@ class InstaMainActivity : AppCompatActivity() {
     private val permissionList = arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE)
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
 
     // 권한 요청
-    private val requestMultiplePermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
-        results.forEach {
-            if(!it.value) {
-                Toast.makeText(applicationContext, "${it.key} 권한 허용 필요", Toast.LENGTH_SHORT).show()
-                finish()
+    private val requestMultiplePermission =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+            results.forEach {
+                if (!it.value) {
+                    Toast.makeText(applicationContext, "${it.key} 권한 허용 필요", Toast.LENGTH_SHORT)
+                        .show()
+                    finish()
+                }
             }
+            main()
         }
-        main()
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityInstaMainBinding.inflate(layoutInflater)

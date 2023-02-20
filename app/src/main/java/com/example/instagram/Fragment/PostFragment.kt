@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContract
@@ -21,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.example.instagram.InstaMainActivity
 import com.example.instagram.RetrofitService
 import com.example.instagram.databinding.FragmentPostBinding
@@ -41,6 +43,8 @@ class PostFragment : Fragment() {
 
     var imageUri: Uri? = null
     var contentInput: String = ""
+    lateinit var selectedImageView: ImageView
+    lateinit var glide: RequestManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,8 +54,28 @@ class PostFragment : Fragment() {
         binding = FragmentPostBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    val imagePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            imageUri = it.data!!.data
+            glide.load(imageUri).into(selectedImageView)
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        selectedImageView = binding.selectedImg
+        glide = Glide.with(activity as InstaMainActivity)
+
+        binding.selectedImg.setOnClickListener {
+
+            // 사진첩으로 이동
+            imagePickerLauncher.launch(
+                Intent(Intent.ACTION_PICK).apply {
+                    this.type = MediaStore.Images.Media.CONTENT_TYPE
+                }
+            )
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://mellowcode.org/")
@@ -59,20 +83,6 @@ class PostFragment : Fragment() {
             .build()
 
         val retrofitService = retrofit.create(RetrofitService::class.java)
-
-        val selectedImageView = binding.selectedImg
-        val glide = Glide.with(activity as InstaMainActivity)
-
-        val imagePickerLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                imageUri = it.data!!.data
-                glide.load(imageUri).into(selectedImageView)
-            }
-        imagePickerLauncher.launch(
-            Intent(Intent.ACTION_PICK).apply {
-                this.type = MediaStore.Images.Media.CONTENT_TYPE
-            }
-        )
 
         binding.selectedContent.doAfterTextChanged {
             contentInput = it.toString()

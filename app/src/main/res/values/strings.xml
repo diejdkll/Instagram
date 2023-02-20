@@ -9,4 +9,7 @@
     <string name="login">로그인</string>
     <string name="post_text">문구 입력</string>
     <string name="post">게시</string>
+    <string name="profile">프로필 편집</string>
+    <string name="change">변경하기</string>
+    <string name="finish">완료</string>
 </resources>
